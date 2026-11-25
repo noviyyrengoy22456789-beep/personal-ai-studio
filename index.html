@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090a0f">
+  <title>Personal AI Studio</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 24px 18px;
+      background: #090a0f;
+      color: #f5f5f7;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .app {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 25px 0;
+    }
+
+    header h1 {
+      font-size: 27px;
+      margin: 0;
+      letter-spacing: -1px;
+    }
+
+    header p {
+      color: #9295a3;
+      font-size: 14px;
+    }
+
+    .panel {
+      background: #151720;
+      border: 1px solid #292c38;
+      border-radius: 20px;
+      padding: 18px;
+      margin-top: 20px;
+    }
+
+    .upload {
+      min-height: 190px;
+      border: 2px dashed #41465a;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      flex-direction: column;
+      gap: 12px;
+      color: #aeb3c5;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .upload input { display: none; }
+
+    .upload img {
+      max-width: 100%;
+      max-height: 320px;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 115px;
+      background: #0d0f16;
+      color: white;
+      border: 1px solid #343849;
+      border-radius: 13px;
+      padding: 14px;
+      font: inherit;
+      resize: vertical;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 13px;
+      background: #8585ef;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    button:disabled {
+      opacity: .5;
+    }
+
+    .hint {
+      color: #858a9b;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    #status {
+      color: #b6b8ff;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header>
+      <h1>Personal AI Studio</h1>
+      <p>Твоя персональная студия редактирования изображений</p>
+    </header>
+
+    <section class="panel">
+      <h3>01 — Исходное изображение</h3>
+      <label class="upload">
+        <input type="file" id="photo" accept="image/*">
+        <span id="uploadText">＋<br>Нажми, чтобы загрузить фотографию</span>
+        <img id="preview" hidden alt="Предпросмотр">
+      </label>
+    </section>
+
+    <section class="panel">
+      <h3>02 — Опиши изменения</h3>
+      <textarea id="prompt" placeholder="Опиши, как ты хочешь изменить изображение..."></textarea>
+      <p class="hint">Чем точнее описание, тем лучше модель сможет понять задачу.</p>
+      <button id="generate">Начать редактирование</button>
+      <p id="status">AI-модель пока не подключена.</p>
+    </section>
+
+    <section class="panel">
+      <h3>03 — Результат</h3>
+      <p class="hint">После подключения AI-модели здесь появится готовое изображение.</p>
+    </section>
+  </main>
+
+  <script>
+    const photo = document.getElementById('photo');
+    const preview = document.getElementById('preview');
+    const uploadText = document.getElementById('uploadText');
+
+    photo.addEventListener('change', () => {
+      const file = photo.files[0];
+      if (!file) return;
+
+      preview.src = URL.createObjectURL(file);
+      preview.hidden = false;
+      uploadText.hidden = true;
+    });
+  </script>
+</body>
+</html>
